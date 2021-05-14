@@ -5,7 +5,7 @@
 ## Requirements
 
 - PHP 7.4+
-- Free [Developer Sandbox](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531)
+- Free [Developer Account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16531)
 
 ## Compatibility
 
@@ -51,17 +51,11 @@ This client has the following external dependencies:
 
 DocuSign provides a sample application referred to as a [Launcher](https://github.com/docusign/eg-03-php-auth-code-grant). The Launcher contains a set of 18 common use cases and associated source files. These examples use DocuSign's [Authorization Code Grant](https://developers.docusign.com/monitor-rest-api/guides/authentication/oauth2-code-grant) flow.
 
-## Proof-of-concept applications
-
-If your goal is to create a proof-of-concept application, DocuSign provides a set of [Quick Start](https://github.com/docusign/qs-php) examples. The Quick Startexamples are meant to be used with DocuSign's [OAuth Token Generator](https://developers.docusign.com/oauth-token-generator), which will allow you to generate tokens for the Demo/Sandbox environment only. These tokens last for eight hours and will enable you to build your proof-of-concept application without the need to fully implement an OAuth solution.
-
 ## OAuth Implementations
 
 For details regarding which type of OAuth grant will work best for your DocuSign integration, see the [REST API Authentication Overview](https://developers.docusign.com/monitor-rest-api/guides/authentication) guide located on the [DocuSign Developer Center](https://developers.docusign.com/monitor-rest-api/guides/authentication).
 
-For security purposes, DocuSign recommends using the [Authorization Code Grant](https://developers.docusign.com/monitor-rest-api/guides/authentication/oauth2-code-grant) flow.
-
-There are other use-case scenarios, such as **single-page applications** (SPA) that use **Cross-Origin Resource Sharing** (CORS), or where there may not be a user to interact with your Service Account. For these use cases, DocuSign also supports [JWT](https://developers.docusign.com/monitor-rest-api/guides/authentication/oauth2-jsonwebtoken) and [Implicit](https://developers.docusign.com/monitor-rest-api/guides/authentication/oauth2-implicit) grants. For code examples, see the links below:
+The Monitor API only works with JWT.
 
 - [JWT (JSON Web Token)](https://github.com/docusign/eg-03-php-auth-code-grant)
 - Implicit Grant (coming soon)
