@@ -1,6 +1,6 @@
 <?php
 /**
- * WebQuery
+ * AggregateResult
  *
  * PHP version 7.4
  *
@@ -34,7 +34,7 @@ use \ArrayAccess;
 use DocuSign\Monitor\ObjectSerializer;
 
 /**
- * WebQuery Class Doc Comment
+ * AggregateResult Class Doc Comment
  *
  * @category    Class
  * @package     DocuSign\Monitor
@@ -42,7 +42,7 @@ use DocuSign\Monitor\ObjectSerializer;
  * @license     The DocuSign PHP Client SDK is licensed under the MIT License.
  * @link        https://github.com/swagger-api/swagger-codegen
  */
-class WebQuery implements ModelInterface, ArrayAccess
+class AggregateResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -51,7 +51,7 @@ class WebQuery implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'webQuery';
+    protected static $swaggerModelName = 'AggregateResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -59,10 +59,7 @@ class WebQuery implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'filters' => 'object[]',
-        'aggregations' => 'object[]',
-        'query_scope' => '?string',
-        'query_scope_id' => '?string'
+        'result' => '\DocuSign\Monitor\Model\AggregateResultResult[]'
     ];
 
     /**
@@ -71,10 +68,7 @@ class WebQuery implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'filters' => null,
-        'aggregations' => null,
-        'query_scope' => null,
-        'query_scope_id' => null
+        'result' => null
     ];
 
     /**
@@ -104,10 +98,7 @@ class WebQuery implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'filters' => 'filters',
-        'aggregations' => 'aggregations',
-        'query_scope' => 'queryScope',
-        'query_scope_id' => 'queryScopeId'
+        'result' => 'result'
     ];
 
     /**
@@ -116,10 +107,7 @@ class WebQuery implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'filters' => 'setFilters',
-        'aggregations' => 'setAggregations',
-        'query_scope' => 'setQueryScope',
-        'query_scope_id' => 'setQueryScopeId'
+        'result' => 'setResult'
     ];
 
     /**
@@ -128,10 +116,7 @@ class WebQuery implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'filters' => 'getFilters',
-        'aggregations' => 'getAggregations',
-        'query_scope' => 'getQueryScope',
-        'query_scope_id' => 'getQueryScopeId'
+        'result' => 'getResult'
     ];
 
     /**
@@ -175,21 +160,8 @@ class WebQuery implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const QUERY_SCOPE_ORGANIZATION_ID = 'OrganizationId';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getQueryScopeAllowableValues()
-    {
-        return [
-            self::QUERY_SCOPE_ORGANIZATION_ID,
-        ];
-    }
     
 
     /**
@@ -207,10 +179,7 @@ class WebQuery implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['filters'] = isset($data['filters']) ? $data['filters'] : null;
-        $this->container['aggregations'] = isset($data['aggregations']) ? $data['aggregations'] : null;
-        $this->container['query_scope'] = isset($data['query_scope']) ? $data['query_scope'] : null;
-        $this->container['query_scope_id'] = isset($data['query_scope_id']) ? $data['query_scope_id'] : null;
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
     }
 
     /**
@@ -221,14 +190,6 @@ class WebQuery implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        $allowedValues = $this->getQueryScopeAllowableValues();
-        if (!is_null($this->container['query_scope']) && !in_array($this->container['query_scope'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'query_scope', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
 
         return $invalidProperties;
     }
@@ -246,106 +207,25 @@ class WebQuery implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets filters
+     * Gets result
      *
-     * @return object[]
+     * @return \DocuSign\Monitor\Model\AggregateResultResult[]
      */
-    public function getFilters()
+    public function getResult()
     {
-        return $this->container['filters'];
+        return $this->container['result'];
     }
 
     /**
-     * Sets filters
+     * Sets result
      *
-     * @param object[] $filters filters
+     * @param \DocuSign\Monitor\Model\AggregateResultResult[] $result result
      *
      * @return $this
      */
-    public function setFilters($filters)
+    public function setResult($result)
     {
-        $this->container['filters'] = $filters;
-
-        return $this;
-    }
-
-    /**
-     * Gets aggregations
-     *
-     * @return object[]
-     */
-    public function getAggregations()
-    {
-        return $this->container['aggregations'];
-    }
-
-    /**
-     * Sets aggregations
-     *
-     * @param object[] $aggregations aggregations
-     *
-     * @return $this
-     */
-    public function setAggregations($aggregations)
-    {
-        $this->container['aggregations'] = $aggregations;
-
-        return $this;
-    }
-
-    /**
-     * Gets query_scope
-     *
-     * @return ?string
-     */
-    public function getQueryScope()
-    {
-        return $this->container['query_scope'];
-    }
-
-    /**
-     * Sets query_scope
-     *
-     * @param ?string $query_scope query_scope
-     *
-     * @return $this
-     */
-    public function setQueryScope($query_scope)
-    {
-        $allowedValues = $this->getQueryScopeAllowableValues();
-        if (!is_null($query_scope) && !in_array($query_scope, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'query_scope', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['query_scope'] = $query_scope;
-
-        return $this;
-    }
-
-    /**
-     * Gets query_scope_id
-     *
-     * @return ?string
-     */
-    public function getQueryScopeId()
-    {
-        return $this->container['query_scope_id'];
-    }
-
-    /**
-     * Sets query_scope_id
-     *
-     * @param ?string $query_scope_id query_scope_id
-     *
-     * @return $this
-     */
-    public function setQueryScopeId($query_scope_id)
-    {
-        $this->container['query_scope_id'] = $query_scope_id;
+        $this->container['result'] = $result;
 
         return $this;
     }
