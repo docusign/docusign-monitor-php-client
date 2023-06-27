@@ -1,6 +1,6 @@
 <?php
 /**
- * CursoredResult
+ * DataSet
  *
  * PHP version 7.4
  *
@@ -34,16 +34,16 @@ use \ArrayAccess;
 use DocuSign\Monitor\ObjectSerializer;
 
 /**
- * CursoredResult Class Doc Comment
+ * DataSet Class Doc Comment
  *
  * @category    Class
- * @description 
+ * @description Methods to fetch organization event data.
  * @package     DocuSign\Monitor
  * @author      Swagger Codegen team <apihelp@docusign.com>
  * @license     The DocuSign PHP Client SDK is licensed under the MIT License.
  * @link        https://github.com/swagger-api/swagger-codegen
  */
-class CursoredResult implements ModelInterface, ArrayAccess
+class DataSet implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -52,7 +52,7 @@ class CursoredResult implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'CursoredResult';
+    protected static $swaggerModelName = 'DataSet';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
