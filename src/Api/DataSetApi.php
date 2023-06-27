@@ -45,7 +45,7 @@ namespace DocuSign\Monitor\Api\DataSetApi;
 class GetStreamOptions
 {
     /**
-      * $cursor The cursor value to continue querying the data with. For an intial call, use empty string
+      * $cursor Specifies a pointer into the dataset where your query will begin. You can either provide an ISO DateTime or a string cursor (from the `endCursor` value in the response). If no value is provided, the query begins from seven days ago.  For example, to fetch event data beginning from January 1, 2022, set this value to `2022-01-01T00:00:00Z`. The response will include data about events starting from that date in chronological order. The response also includes an `endCursor` property. To fetch the next page of event data, call this endpoint again with `cursor` set to the previous `endCursor` value.
       * @var ?string
       */
     protected ?string $cursor = null;
@@ -62,7 +62,7 @@ class GetStreamOptions
 
     /**
      * Sets cursor
-     * @param ?string $cursor The cursor value to continue querying the data with. For an intial call, use empty string
+     * @param ?string $cursor Specifies a pointer into the dataset where your query will begin. You can either provide an ISO DateTime or a string cursor (from the `endCursor` value in the response). If no value is provided, the query begins from seven days ago.  For example, to fetch event data beginning from January 1, 2022, set this value to `2022-01-01T00:00:00Z`. The response will include data about events starting from that date in chronological order. The response also includes an `endCursor` property. To fetch the next page of event data, call this endpoint again with `cursor` set to the previous `endCursor` value.
      *
      * @return self
      */
@@ -72,7 +72,7 @@ class GetStreamOptions
         return $this;
     }
     /**
-      * $limit The maximum number of records to return, minimum of 1, maximum of 2000. Defaults to 1000 if no value is provided
+      * $limit The maximum number of records to return. The default value is 1000.
       * @var ?int
       */
     protected ?int $limit = null;
@@ -89,7 +89,7 @@ class GetStreamOptions
 
     /**
      * Sets limit
-     * @param ?int $limit The maximum number of records to return, minimum of 1, maximum of 2000. Defaults to 1000 if no value is provided
+     * @param ?int $limit The maximum number of records to return. The default value is 1000.
      *
      * @return self
      */
@@ -184,16 +184,16 @@ class DataSetApi
     /**
      * Operation getStream
      *
-     * 
+     * Gets customer event data for an organization.
      *
-     * @param ?string $data_set_name The name of the dataset to stream
-     * @param ?string $version The requested API version
+     * @param ?string $data_set_name Must be &#x60;monitor&#x60;.
+     * @param ?string $version Must be &#x60;2&#x60;.
      * @param  \DocuSign\Monitor\Api\DataSetApi\GetStreamOptions  $options for modifying the behavior of the function. (optional)
      *
      * @throws ApiException on non-2xx response
      * @return \DocuSign\Monitor\Model\CursoredResult
      */
-    public function getStream($data_set_name, $version, \DocuSign\Monitor\Api\DataSetApi\GetStreamOptions $options = null): \DocuSign\Monitor\Model\CursoredResult
+    public function getStream($data_set_name, $version, \DocuSign\Monitor\Api\DataSetApi\GetStreamOptions $options = null)
     {
         list($response) = $this->getStreamWithHttpInfo($data_set_name, $version, $options);
         return $response;
@@ -202,10 +202,10 @@ class DataSetApi
     /**
      * Operation getStreamWithHttpInfo
      *
-     * 
+     * Gets customer event data for an organization.
      *
-     * @param ?string $data_set_name The name of the dataset to stream
-     * @param ?string $version The requested API version
+     * @param ?string $data_set_name Must be &#x60;monitor&#x60;.
+     * @param ?string $version Must be &#x60;2&#x60;.
      * @param  \DocuSign\Monitor\Api\DataSetApi\GetStreamOptions  $options for modifying the behavior of the function. (optional)
      *
      * @throws ApiException on non-2xx response
@@ -278,110 +278,6 @@ class DataSetApi
             switch ($e->getCode()) {
                 case 200:
                     $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\DocuSign\Monitor\Model\CursoredResult', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postWebQuery
-     *
-     * 
-     *
-     * @param ?string $data_set_name The name of the dataset to query
-     * @param ?string $version The requested API version
-     * @param \DocuSign\Monitor\Model\WebQuery $web_query A collection of filter clauses and aggregations scoped to one or more organizations. The fields queryScope and queryScopeId may be omitted defaulting to all applicable organizations (required)
-     *
-     * @throws ApiException on non-2xx response
-     * @return \DocuSign\Monitor\Model\AggregateResult
-     */
-    public function postWebQuery($data_set_name, $version, $web_query)
-    {
-        list($response) = $this->postWebQueryWithHttpInfo($data_set_name, $version, $web_query);
-        return $response;
-    }
-
-    /**
-     * Operation postWebQueryWithHttpInfo
-     *
-     * 
-     *
-     * @param ?string $data_set_name The name of the dataset to query
-     * @param ?string $version The requested API version
-     * @param \DocuSign\Monitor\Model\WebQuery $web_query A collection of filter clauses and aggregations scoped to one or more organizations. The fields queryScope and queryScopeId may be omitted defaulting to all applicable organizations (required)
-     *
-     * @throws ApiException on non-2xx response
-     * @return array of \DocuSign\Monitor\Model\AggregateResult, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postWebQueryWithHttpInfo($data_set_name, $version, $web_query): array
-    {
-        // verify the required parameter 'data_set_name' is set
-        if ($data_set_name === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $data_set_name when calling postWebQuery');
-        }
-        // verify the required parameter 'version' is set
-        if ($version === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $version when calling postWebQuery');
-        }
-        // verify the required parameter 'web_query' is set
-        if ($web_query === null) {
-            throw new \InvalidArgumentException('Missing the required parameter $web_query when calling postWebQuery');
-        }
-        // parse inputs
-        $resourcePath = "/api/v{version}/datasets/{dataSetName}/web_query";
-        $httpBody = $_tempBody ?? ''; // $_tempBody is the method argument, if present
-        $queryParams = $headerParams = $formParams = [];
-        $headerParams['Accept'] ??= $this->apiClient->selectHeaderAccept(['application/json']);
-        $headerParams['Content-Type'] = $this->apiClient->selectHeaderContentType(['application/json']);
-
-
-        // path params
-        if ($data_set_name !== null) {
-            $resourcePath = self::updateResourcePath($resourcePath, "dataSetName", $data_set_name);
-        }
-        // path params
-        if ($version !== null) {
-            $resourcePath = self::updateResourcePath($resourcePath, "version", $version);
-        }
-
-        // default format to json
-        $resourcePath = str_replace("{format}", "json", $resourcePath);
-        // body params
-        $_tempBody = null;
-        if (isset($web_query)) {
-            $_tempBody = $web_query;
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
-        } elseif (count($formParams) > 0) {
-            $httpBody = $formParams; // for HTTP post (form)
-        }
-        // this endpoint requires OAuth (access token)
-        if (strlen($this->apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $this->apiClient->getConfig()->getAccessToken();
-        }
-        // make the API Call
-        try {
-            list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
-                $resourcePath,
-                'POST',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\DocuSign\Monitor\Model\AggregateResult',
-                '/api/v{version}/datasets/{dataSetName}/web_query'
-            );
-
-            return [$this->apiClient->getSerializer()->deserialize($response, '\DocuSign\Monitor\Model\AggregateResult', $httpHeader), $statusCode, $httpHeader];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $this->apiClient->getSerializer()->deserialize($e->getResponseBody(), '\DocuSign\Monitor\Model\AggregateResult', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
             }
