@@ -2,6 +2,9 @@
 See [DocuSign Support Center](https://support.docusign.com/en/releasenotes/) for Product Release Notes.
 
 
+## [v1.2.1] - Monitor API v2.0-2.0.0 - 2024-04-22
+### Changed
+- Adjusted the minimum required firebase/php-jwt package version to 6.0.
 ## [v1.2.1-rc1] - Monitor API v2.0-2.0.0 - 2024-03-19
 ### Changed
 - Adjusted the minimum required firebase/php-jwt package version to 6.0.
