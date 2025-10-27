@@ -1,8 +1,8 @@
 {
     "name": "docusign/monitor-client",
-    "description": "The DocuSign package makes integrating DocuSign into your apps and websites a super fast and painless process. The library is open sourced on GitHub, look for the docusign-monitor-php-client repository.",
+    "description": "The Docusign package makes integrating Docusign into your apps and websites a super fast and painless process. The library is open sourced on GitHub, look for the docusign-monitor-php-client repository.",
     "keywords": [
-        "DocuSign",
+        "Docusign",
         "Monitor",
         "php",
         "sdk",

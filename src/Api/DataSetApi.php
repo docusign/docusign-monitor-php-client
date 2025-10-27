@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @category Class
  * @package  DocuSign\Monitor
  * @author   Swagger Codegen team <apihelp@docusign.com>
- * @license  The DocuSign PHP Client SDK is licensed under the MIT License.
+ * @license  The Docusign PHP Client SDK is licensed under the MIT License.
  * @link     https://github.com/swagger-api/swagger-codegen
  */
 
@@ -39,7 +39,7 @@ namespace DocuSign\Monitor\Api\DataSetApi;
  * @category Class
  * @package  DocuSign\Monitor
  * @author   Swagger Codegen team <apihelp@docusign.com>
- * @license  The DocuSign PHP Client SDK is licensed under the MIT License.
+ * @license  The Docusign PHP Client SDK is licensed under the MIT License.
  * @link     https://github.com/swagger-api/swagger-codegen
  */
 class GetStreamOptions
@@ -115,7 +115,7 @@ use DocuSign\Monitor\ObjectSerializer;
  * @category Class
  * @package  DocuSign\Monitor
  * @author   Swagger Codegen team <apihelp@docusign.com>
- * @license  The DocuSign PHP Client SDK is licensed under the MIT License.
+ * @license  The Docusign PHP Client SDK is licensed under the MIT License.
  * @link     https://github.com/swagger-api/swagger-codegen
  */
 class DataSetApi
@@ -134,7 +134,7 @@ class DataSetApi
      *
      * @return void
      */
-    public function __construct(ApiClient $apiClient = null)
+    public function __construct(?ApiClient $apiClient = null)
     {
         $this->apiClient = $apiClient ?? new ApiClient();
     }
@@ -193,7 +193,7 @@ class DataSetApi
      * @throws ApiException on non-2xx response
      * @return \DocuSign\Monitor\Model\CursoredResult
      */
-    public function getStream($data_set_name, $version, \DocuSign\Monitor\Api\DataSetApi\GetStreamOptions $options = null)
+    public function getStream($data_set_name, $version, ?\DocuSign\Monitor\Api\DataSetApi\GetStreamOptions $options = null)
     {
         list($response) = $this->getStreamWithHttpInfo($data_set_name, $version, $options);
         return $response;
@@ -211,7 +211,7 @@ class DataSetApi
      * @throws ApiException on non-2xx response
      * @return array of \DocuSign\Monitor\Model\CursoredResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getStreamWithHttpInfo($data_set_name, $version, \DocuSign\Monitor\Api\DataSetApi\GetStreamOptions $options = null): array
+    public function getStreamWithHttpInfo($data_set_name, $version, ?\DocuSign\Monitor\Api\DataSetApi\GetStreamOptions $options = null): array
     {
         // verify the required parameter 'data_set_name' is set
         if ($data_set_name === null) {
