@@ -7,7 +7,7 @@
  * @category Class
  * @package  DocuSign\Monitor
  * @author   Swagger Codegen team <apihelp@docusign.com>
- * @license  The DocuSign PHP Client SDK is licensed under the MIT License.
+ * @license  The Docusign PHP Client SDK is licensed under the MIT License.
  * @link     https://github.com/swagger-api/swagger-codegen
  */
 
@@ -40,7 +40,7 @@ use DocuSign\Monitor\ObjectSerializer;
  * @description Methods to fetch organization event data.
  * @package     DocuSign\Monitor
  * @author      Swagger Codegen team <apihelp@docusign.com>
- * @license     The DocuSign PHP Client SDK is licensed under the MIT License.
+ * @license     The Docusign PHP Client SDK is licensed under the MIT License.
  * @link        https://github.com/swagger-api/swagger-codegen
  */
 class DataSet implements ModelInterface, ArrayAccess
@@ -183,7 +183,7 @@ class DataSet implements ModelInterface, ArrayAccess
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['end_cursor'] = isset($data['end_cursor']) ? $data['end_cursor'] : null;
         $this->container['data'] = isset($data['data']) ? $data['data'] : null;
