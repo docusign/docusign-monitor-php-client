@@ -2,6 +2,11 @@
 See [DocuSign Support Center](https://support.docusign.com/en/releasenotes/) for Product Release Notes.
 
 
+## [v1.2.3] - Monitor API v2.0-2.0.0 - 2026-06-09
+### Changed
+- Added support for version v2.1-26.1.1.00 of the DocuSign ESignature API.
+- Updated the SDK release version.
+
 ## [v1.2.2] - Monitor API v2.0-2.0.0 - 2025-10-16
 ### Changed
 - Added explicit nullable type hints (`?Type`) to parameters that accept `null`, improving type safety and consistency.
