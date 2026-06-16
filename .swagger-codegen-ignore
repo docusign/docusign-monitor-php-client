@@ -42,4 +42,4 @@ docs/
 test/
 src/ApiClient.php
 src/ApiException.php
-src/Client/
+src/Client/Auth/**
