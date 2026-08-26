@@ -96,7 +96,7 @@ class TestConfig
 
     public function __construct($integratorKey = null, $host = null, $returnUrl = null, $envelopeId = null, $secret = null, $key = null, $userId = null, $privateKey = null)
     {
-        $this->host = !empty($host) ? $host : 'https://lens-d.docusign.net';
+        $this->host = !empty($host) ? $host : 'https://api-d.docusign.com';
         $this->integratorKey = !empty($integratorKey) ? $integratorKey : getenv('INTEGRATOR_KEY_JWT');
         $this->clientSecret = !empty($secret) ? $secret : getenv('CLIENT_SECRET');
         $this->clientKey = !empty($key) ? $key : 'Docs/private.pem';

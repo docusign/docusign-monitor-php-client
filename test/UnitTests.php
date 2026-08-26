@@ -21,9 +21,11 @@ class UnitTests extends TestCase
         $config->setHost($testConfig->getHost());
 
         $testConfig->setApiClient(new DocuSign\Monitor\Client\ApiClient($config));
-        $testConfig->getApiClient()->getOAuth()->setBasePath($testConfig->getHost());
+        $testConfig->getApiClient()->getOAuth()->setOAuthBasePath(
+            DocuSign\Monitor\Client\Auth\OAuth::$DEMO_OAUTH_BASE_PATH
+        );
 
-        $scope = ["signature"];
+        $scope = ["impersonation", "signature"];
 
         $token = $testConfig->getApiClient()->requestJWTUserToken($testConfig->getIntegratorKey(),$testConfig->getUserId(), $testConfig->getClientKey(), $scope);
 
@@ -33,7 +35,7 @@ class UnitTests extends TestCase
         $user = $testConfig->getApiClient()->getUserInfo($token[0]['access_token']);
 
         $this->assertNotEmpty($user);
-        $this->assertEquals($user[1], 200);
+        $this->assertEquals(200, $user[1]);
 
         $this->assertInstanceOf('DocuSign\Monitor\Client\Auth\UserInfo', $user[0]);
         $this->assertNotEmpty($user[0]);
@@ -41,8 +43,12 @@ class UnitTests extends TestCase
         $this->assertArrayHasKey('accounts', $user[0]);
         $loginAccount = $user[0]['accounts'][0];
         $accountId = $loginAccount->getAccountId();
+        $organization = $loginAccount->getOrganization();
 
         $this->assertNotEmpty($accountId);
+        $this->assertNotNull($organization);
+        $organizationId = $organization->getOrganizationId();
+        $this->assertNotEmpty($organizationId);
 
         $testConfig->setAccountId($accountId);
 
@@ -52,14 +58,28 @@ class UnitTests extends TestCase
     /**
      * @depends testLogin
      */
-    public function testMonitor($testConfig)
+    public function testDocuMonitor($testConfig)
     {
-        $monitorApi = new DocuSign\Monitor\Api\DataSetApi($testConfig->getApiClient());
-        $data_set_name = 'monitor';
-		$version = '2.0';      
-        $dataset_stream = $monitorApi->getStream($data_set_name, $version);        
-        $this->assertNotEmpty($dataset_stream);
-        
+        $defaultHeaders = $testConfig->getApiClient()->getConfig()->getDefaultHeaders();
+        $authorization = $defaultHeaders['Authorization'];
+        $accessToken = substr($authorization, strlen('Bearer '));
+        $loginAccount = $testConfig->getApiClient()->getUserInfo($accessToken)[0]['accounts'][0];
+        $organizationId = $loginAccount->getOrganization()->getOrganizationId();
+
+        $monitorApi = new DocuSign\Monitor\Api\DocuMonitorApi($testConfig->getApiClient());
+        $options = new DocuSign\Monitor\Api\DocuMonitorApi\StreamOptions();
+        $options->setCursor(gmdate('Y-m-d\TH:i:s\Z', strtotime('-1 day')));
+        $options->setLimit(100);
+        $stream = $monitorApi->stream($organizationId, $options);
+
+        $this->assertInstanceOf('DocuSign\Monitor\Model\StreamResponse', $stream);
+        $this->assertNotEmpty($stream->getEndCursor());
+        $this->assertNotNull($stream->getResultData());
+        $this->assertInternalType('array', $stream->getResultData());
+
+        if (count($stream->getResultData()) > 0) {
+            $this->assertNotEmpty($stream->getResultData()[0]->getEventId());
+        }
     }
 }
 
