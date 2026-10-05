@@ -66,12 +66,12 @@ class OAuth
         }
 
         //Derive OAuth Base Path if not given.
-        if (substr($this->getBasePath(), 0, 14) === "https://lens-d"
-            || substr($this->getBasePath(), 0, 13) === "http://lens-d"
+        if (substr($this->getBasePath(), 0, 14) === "https://api-d"
+            || substr($this->getBasePath(), 0, 13) === "http://api-d"
         ) {
             $this->oAuthBasePath = self::$DEMO_OAUTH_BASE_PATH;
-        } elseif (substr($this->getBasePath(), 0, 14) === "https://lens-s"
-            || substr($this->getBasePath(), 0, 13) === "http://lens-s"
+        } elseif (substr($this->getBasePath(), 0, 14) === "https://api-s"
+            || substr($this->getBasePath(), 0, 13) === "http://api-s"
         ) {
             $this->oAuthBasePath = self::$STAGE_OAUTH_BASE_PATH;
         } else {
